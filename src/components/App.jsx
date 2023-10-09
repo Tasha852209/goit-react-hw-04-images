@@ -15,7 +15,7 @@ const AppContainer = styled.div`
   padding-bottom: 24px;
 `;
 
-export const App = () => {
+const App = () => {
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,26 +25,6 @@ export const App = () => {
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [totalHits, setTotalHits] = useState(null);
-
-  // const loadImages = useCallback(async (searchItem, page) => {
-  //   setIsLoading(true);
-  //   try {
-  //     const fetchedImages = await fetchImages(searchItem, page);
-  //     const { hits, totalHits } = fetchedImages;
-  //     setTotalHits(totalHits);
-  //     setImages(prevImages => [...prevImages, ...hits]);
-  //   } catch (error) {
-  //     setError(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (searchItem !== '' || page !== 1) {
-  //     loadImages(searchItem, page);
-  //   }
-  // }, [searchItem, page, loadImages]);
 
   useEffect(() => {
     const loadImages = async (searchItem, page) => {
@@ -56,9 +36,6 @@ export const App = () => {
         setTotalHits(totalHits);
         setImages(prevImages => [...prevImages, ...hits]);
         setTotalHits(totalHits);
-        // setAllImagesLoaded(
-        //   prevImages => prevImages.length + hits.length >= totalHits
-        // );
       } catch (error) {
         setError(error);
       } finally {
@@ -78,50 +55,13 @@ export const App = () => {
     }
   }, [images, totalHits]);
 
-  //  async loadImages(searchItem, page) {
-  //   this.setState({ isLoading: true, showModal: false });
-  //   try {
-  //     const images = await fetchImages(searchItem, page);
-  //     const { totalHits } = images;
-  //     this.setState(prevState => ({
-  //       images: [...prevState.images, ...images.hits],
-  //       totalHits,
-  //       allImagesLoaded:
-  //         prevState.images.length + images.hits.length >= totalHits,
-  //     }));
-
-  //     if (this.state.images === totalHits) {
-  //       this.setState({ allImagesLoaded: true });
-  //     }
-  //   } catch (error) {
-  //     this.setState({ error });
-  //   } finally {
-  //     this.setState({ isLoading: false });
-  //   }
-  // }
-
-  // async componentDidUpdate(prevProps, prevState) {
-  //   const { searchItem, page } = this.state;
-  //   if (searchItem !== prevState.searchItem || page !== prevState.page) {
-  //     this.loadImages(searchItem, page);
-  //   }
-  // }
-
   const handleSubmit = searchQuery => {
     setImages([]);
-    setSearchItem('');
+    setSearchItem(searchQuery);
     setPage(1);
     setAllImagesLoaded(false);
     setSelectedImage(null);
-    setTotalHits(0);
-    // this.setState({
-    //   searchItem: searchQuery,
-    //   page: 1,
-    //   images: [],
-    //   allImagesLoaded: false,
-    //   selectedImage: null,
-    //   totalHits: null,
-    // });
+    setTotalHits(null);
   };
 
   const showMoreImages = () => {
