@@ -9,7 +9,7 @@ const Modal = ({ toggleModal, children, onClick }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  });
 
   function handleKeyDown(event) {
     if (event.code === 'Escape') {
